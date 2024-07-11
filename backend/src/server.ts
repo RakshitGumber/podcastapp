@@ -1,11 +1,13 @@
-import express, { Express, Request, Response } from "express";
+import express, { Express } from "express";
 import { config } from "dotenv";
 import bodyParser from "body-parser";
 import cors from "cors";
 import path from "path";
+import connection from "./db";
 import { fileURLToPath } from "url";
 
 import home from "./routes/home";
+import api from "./routes/api";
 
 config();
 
@@ -16,13 +18,20 @@ app.use(cors());
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-app.use(express.static(path.join(__dirname, "public", "client")));
+app.use(express.static(path.join(__dirname, "public")));
 
 app.use(bodyParser.json({ limit: "30mb" }));
 app.use(bodyParser.urlencoded({ extended: true, limit: "30mb" }));
 
 app.use("/", home);
+app.use("/api", api);
 
-app.listen(process.env.PORT, (): void => {
-  console.log("server started at http://localhost:" + process.env.PORT);
-});
+Promise.all([connection()])
+  .then(() => {
+    console.log("Server connected to the database");
+  })
+  .then(() => {
+    app.listen(process.env.PORT, (): void => {
+      console.log("server started at http://localhost:" + process.env.PORT);
+    });
+  });
