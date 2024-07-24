@@ -5,6 +5,11 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
+    children: [
+      {
+        path: "home",
+      },
+    ],
   },
   {
     path: "/signup",

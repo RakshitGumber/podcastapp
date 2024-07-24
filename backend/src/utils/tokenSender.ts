@@ -27,14 +27,18 @@ export const sendTokenEmail = (email: string): Promise<string> => {
     const token = jwt.sign(
       { email },
       process.env.JWT_SecretKey ?? "OurSecretKey",
-      { expiresIn: "10m" }
+      {
+        expiresIn: "10m",
+      }
     );
+
+    const pageUrl = process.env.PAGEURL;
 
     const mailConfigurations = {
       from: process.env.Sender_Email,
       to: email,
       subject: "Verify your account",
-      text: `Hi! There, You have recently visited our website and entered your email. Please follow the given link to verify your email: http://localhost:5173/verify/${token}\n\nThanks`,
+      text: `Hi! There, You have recently visited our website and entered your email. Please follow the given link to verify your email: ${pageUrl}/verify/${token}\n\nThanks`,
     };
 
     transporter.sendMail(mailConfigurations, (error, info) => {
