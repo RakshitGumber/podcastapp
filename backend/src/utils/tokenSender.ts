@@ -34,7 +34,7 @@ export const sendTokenEmail = (email: string): Promise<string> => {
       from: process.env.Sender_Email,
       to: email,
       subject: "Verify your account",
-      text: `Hi! There, You have recently visited our website and entered your email. Please follow the given link to verify your email: http://localhost:3000/verify/${token}\n\nThanks`,
+      text: `Hi! There, You have recently visited our website and entered your email. Please follow the given link to verify your email: http://localhost:5173/verify/${token}\n\nThanks`,
     };
 
     transporter.sendMail(mailConfigurations, (error, info) => {

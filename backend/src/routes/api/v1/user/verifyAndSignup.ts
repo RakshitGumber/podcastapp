@@ -7,7 +7,10 @@ export default async (req: Request, res: Response): Promise<Response> => {
     const { username, email, password, subscribed } = req.body;
     const { token } = req.params;
 
-    const isTokenValid = await verifyToken(token);
+    if (!token)
+      return res.status(404).json({ message: `Token verification failed` });
+
+    const isTokenValid = await verifyToken(String(token));
 
     if (!isTokenValid)
       return res.status(400).json({ message: `Token verification failed` });

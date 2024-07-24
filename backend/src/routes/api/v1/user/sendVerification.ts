@@ -5,12 +5,22 @@ export default async (req: Request, res: Response): Promise<Response> => {
   try {
     const { email } = req.body;
 
-    if (!email) return res.status(400).json({ message: "please proved email" });
+    const emailRegex = /^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,6}$/;
+
+    if (!email)
+      if (!emailRegex.test(email))
+        return res
+          .status(400)
+          .json({ status: "warn", message: "Email String Error" });
 
     const token = await sendTokenEmail(email);
 
-    return res.status(200).json({ message: "Verification email sent", token });
+    return res
+      .status(200)
+      .json({ status: "success", message: "Verification email sent", token });
   } catch (error) {
-    return res.status(500).json({ message: "Internal server error", error });
+    return res
+      .status(500)
+      .json({ status: "failed", message: "Internal server error", error });
   }
 };

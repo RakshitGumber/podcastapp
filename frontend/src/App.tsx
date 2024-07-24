@@ -1,9 +1,20 @@
+import { Home, Signup, Verification } from "./pages";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />,
+  },
+  {
+    path: "/signup",
+    element: <Signup />,
+  },
+  { path: "/verify/:token", element: <Verification /> },
+]);
+
 function App() {
-  return (
-    <>
-      <h1 className="text-3xl font-heading font-bold">Hello</h1>
-    </>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
