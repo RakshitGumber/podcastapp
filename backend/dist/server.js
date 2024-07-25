@@ -34,7 +34,7 @@ Promise.all([connection()])
     console.log("Server connected to the database");
   })
   .then(() => {
-    app.listen(process.env.PORT, () => {
+    app.listen(process.env.PORT || 3000, () => {
       console.log("server started at http://localhost:" + process.env.PORT);
     });
   });
