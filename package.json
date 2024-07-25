@@ -1,0 +1,13 @@
+{
+  "name": "podcast-project",
+  "version": "1.0.0",
+  "description": "A podcast streaming platform with backend and frontend in one repository",
+  "scripts": {
+    "start": "npm --prefix backend start"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "engines": {
+    "node": ">=16.x"
+  }
+}
