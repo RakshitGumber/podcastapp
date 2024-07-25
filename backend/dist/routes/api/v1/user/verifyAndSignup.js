@@ -1,0 +1,24 @@
+import { verifyToken } from "../../../../utils/tokenVerification.js";
+import { signupUser } from "../../../../controller/v1/user/index.js";
+export default async (req, res) => {
+  try {
+    const { username, email, password, subscribed } = req.body;
+    const { token } = req.params;
+    if (!token)
+      return res.status(404).json({ message: `Token verification failed` });
+    const isTokenValid = await verifyToken(String(token));
+    if (!isTokenValid)
+      return res.status(400).json({ message: `Token verification failed` });
+    const newUser = await signupUser({ username, email, password, subscribed });
+    if (newUser.success && newUser.user) {
+      return res.status(201).json({
+        message: `User created successfully`,
+        user: { username: newUser.user.username, email: newUser.user.email },
+      });
+    } else {
+      return res.status(400).json({ message: newUser.message });
+    }
+  } catch (error) {
+    return res.status(500).json({ message: `Server error while signing up` });
+  }
+};

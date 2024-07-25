@@ -1,0 +1,11 @@
+import { Router } from "express";
+import getUsers from "./getUsers.js";
+import sendVerification from "./sendVerification.js";
+import login from "./loginUser.js";
+import verifyAndSignup from "./verifyAndSignup.js";
+const router = Router();
+router.get("/", getUsers);
+router.post("/signup", sendVerification);
+router.post("/login", login);
+router.post("/verify/:token", verifyAndSignup);
+export default router;
