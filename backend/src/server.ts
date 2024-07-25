@@ -3,12 +3,12 @@ import { config } from "dotenv";
 import bodyParser from "body-parser";
 import cors from "cors";
 import path from "path";
-import connection from "./db";
+import connection from "./db/index";
 import { fileURLToPath } from "url";
 
-import home from "./routes/home";
-import api from "./routes/api";
-import signup from "./routes/signup";
+import home from "./routes/home/index.ts";
+import api from "./routes/api/index.ts";
+import signup from "./routes/signup/index.ts";
 
 config();
 

@@ -1,8 +1,8 @@
 import { Router, Request, Response } from "express";
-import getUsers from "./getUsers";
-import sendVerification from "./sendVerification";
-import login from "./loginUser";
-import verifyAndSignup from "./verifyAndSignup";
+import getUsers from "./getUsers.ts";
+import sendVerification from "./sendVerification.ts";
+import login from "./loginUser.ts";
+import verifyAndSignup from "./verifyAndSignup.ts";
 
 const router = Router();
 
